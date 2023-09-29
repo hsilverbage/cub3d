@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: hsilverb <hsilverb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 17:24:08 by henrik            #+#    #+#             */
-/*   Updated: 2023/09/29 17:32:04 by henrik           ###   ########lyon.fr   */
+/*   Created: 2022/11/15 16:22:41 by hsilverb          #+#    #+#             */
+/*   Updated: 2022/11/19 17:31:41 by hsilverb         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_isalnum(int c)
 {
-	printf("testing makefile\n");
-
-	return (0);
+	if ((c >= '0' && c <= '9') || \
+		(c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else
+		return (0);
 }

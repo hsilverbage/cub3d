@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 17:24:08 by henrik            #+#    #+#             */
-/*   Updated: 2023/09/29 17:32:04 by henrik           ###   ########lyon.fr   */
+/*   Created: 2022/11/24 17:40:49 by hsilverb          #+#    #+#             */
+/*   Updated: 2022/12/13 12:20:45 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	printf("testing makefile\n");
+	size_t	i;
+	size_t	len;
+	char	*str;
 
-	return (0);
+	i = 0;
+	len = ft_strlen(s);
+	if (!s)
+		return (NULL);
+	str = malloc(sizeof(char) * (len +1));
+	if (!str)
+		return (NULL);
+	while (len--)
+	{
+		str[i] = (f(i, s[i]));
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
