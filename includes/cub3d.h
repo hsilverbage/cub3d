@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: hsilverb <hsilverb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/04 02:18:35 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/05 19:02:10 by hsilverb         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,10 @@ void	ft_perror_exit(void);
 //	FREE
 
 void	ft_free_all(t_game *game);
+int		ft_close_mlx(t_game *game);
+//KEYS
+
+int	ft_key_pressed(int key, t_game *game);
+
 
 #endif

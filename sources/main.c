@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: hsilverb <hsilverb@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:24:08 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/04 02:25:38 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/05 19:07:26 by hsilverb         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,6 @@ void	ft_init_mlx(t_game *game)
 		ft_error_msg("mlx new window failed");	//	NEED TO CHECK NEED FREE STRUCTS
 }
 
-int	ft_close_mlx(t_game *game)
-{
-	ft_free_all(game);
-	if (game->mlx_ptr)
-		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	// mlx_destroy_display(game->mlx_ptr); DOESNT WORK IF MAC
-	free(game->mlx_ptr);
-	exit(0);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -54,7 +43,7 @@ int	main(int argc, char **argv)
 	ft_init_mlx(&game);
 	//ft_display_map(&game);
 	mlx_hook(game.win_ptr, 17, 1L << 2, ft_close_mlx, &game); //17 = destroy - ft_close ft destroy
-	// mlx_hook(game.win_ptr, 2, 1L << 0, ft_move_event, &game); // 2 = key pressed, ft_moves event if W or if A ..
+	mlx_hook(game.win_ptr, 2, 1L << 0, ft_close_mlx, &game); // 2 = key pressed, ft_moves event if W or if A ..
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }
