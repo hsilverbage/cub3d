@@ -6,15 +6,55 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:24:08 by henrik            #+#    #+#             */
-/*   Updated: 2023/09/29 17:32:04 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/04 02:25:38 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(void)
-{
-	printf("testing makefile\n");
+// void	ft_init_mlx(t_game *game)
+// {
+// 	game->mlx_ptr = mlx_init();
+// 	if (!game->mlx_ptr)
+// 		ft_perror_exit();
+// 	game->win_ptr = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "cub3D");
+// 	if (!game->win_ptr)
+// 		ft_perror_exit();
+// }
 
+void	ft_init_mlx(t_game *game)
+{
+	game->mlx_ptr = mlx_init();
+	if (!game->mlx_ptr)
+		ft_error_msg("mlx init failed");	//	NEED TO CHECK NEED FREE STRUCTS
+	game->win_ptr = mlx_new_window(game->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
+	if (!game->win_ptr)
+		ft_error_msg("mlx new window failed");	//	NEED TO CHECK NEED FREE STRUCTS
+}
+
+int	ft_close_mlx(t_game *game)
+{
+	ft_free_all(game);
+	if (game->mlx_ptr)
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	// mlx_destroy_display(game->mlx_ptr); DOESNT WORK IF MAC
+	free(game->mlx_ptr);
+	exit(0);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_game	game;
+
+	if (argc != 2)
+		ft_error_msg("Wrong number of arguments : ./cub3d maps/map_name.cub");
+	ft_bzero(&game, sizeof(game));
+	ft_parse_map(&game, argv[1]);
+	ft_init_mlx(&game);
+	//ft_display_map(&game);
+	mlx_hook(game.win_ptr, 17, 1L << 2, ft_close_mlx, &game); //17 = destroy - ft_close ft destroy
+	// mlx_hook(game.win_ptr, 2, 1L << 0, ft_move_event, &game); // 2 = key pressed, ft_moves event if W or if A ..
+	mlx_loop(game.mlx_ptr);
 	return (0);
 }

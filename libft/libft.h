@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsilverb <hsilverb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 15:52:03 by hsilverb          #+#    #+#             */
-/*   Updated: 2023/06/02 18:00:21 by hsilverb         ###   ########lyon.fr   */
+/*   Updated: 2023/10/03 18:35:01 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdbool.h>
 
 typedef struct s_list
 {
@@ -50,6 +51,7 @@ int		ft_putchar(char c);
 int		ft_putnbr_hexa(char *base, unsigned int nbr);
 int		ft_putnbr(int nbr);
 int		ft_putnbr_unsigned(unsigned int nbr);
+int		ft_is_white_spaces(char c);
 
 void	ft_bzero(void *s, size_t n);
 void	ft_putchar_fd(char c, int fd);

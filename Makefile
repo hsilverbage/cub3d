@@ -10,7 +10,7 @@ ifeq ($(shell uname),Linux)
 	MAKEFLAGS	+= --no-print-directory -s
 	MLX_DIR = mlx_linux/
 else
-	CFLAGS = -Wall -Wextra -Werror
+	CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 	MLXFLAGS = -framework OpenGL -framework AppKit -Lmlx -lmlx -lm
 	MLX_DIR = mlx/
 endif
@@ -31,7 +31,10 @@ LIBFT		= libft/libft.a
 MLX_A		= libmlx.a
 MLX			= $(addprefix $(MLX_DIR), $(MLX_A))
 
-SRC =	$(SRC_DIR)/main.c
+SRC =	$(SRC_DIR)/main.c		\
+		$(SRC_DIR)/parsing.c	\
+		$(SRC_DIR)/error.c		\
+		$(SRC_DIR)/free.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
