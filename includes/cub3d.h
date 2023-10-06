@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsilverb <hsilverb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/05 19:02:10 by hsilverb         ###   ########lyon.fr   */
+/*   Updated: 2023/10/06 17:33:20 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "../libft/libft.h"
 # include "var.h"
 
-# define WIN_WIDTH 1080
-# define WIN_HEIGHT 780
+# define WIDTH 1080
+# define HEIGHT 780
 
 # define MALLOC "Malloc was unsuccessful"
 

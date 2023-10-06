@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsilverb <hsilverb@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:54:49 by hsilverb          #+#    #+#             */
-/*   Updated: 2023/10/05 19:08:03 by hsilverb         ###   ########lyon.fr   */
+/*   Updated: 2023/10/06 17:35:48 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	ft_key_pressed(int key, t_game *game)
 {
 	if (key == ESC)
-		ft_free_all(game);
+		ft_close_mlx(game);
 	return (key);
 }
