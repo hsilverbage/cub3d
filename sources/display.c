@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 20:00:46 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/09 12:49:00 by henrik           ###   ########lyon.fr   */
+/*   Created: 2023/10/09 12:53:09 by henrik            #+#    #+#             */
+/*   Updated: 2023/10/09 18:34:46 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_error_msg(char *str, t_game *game)
+void	ft_display(t_game *game)
 {
-	ft_putstr_fd("Error\n", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	write(STDERR_FILENO, "\n", 1);
-	ft_free_all(game);
-	exit (0);
-}
+	int		x;
+	int		y;
 
-void	ft_perror_exit(void)
-{
-	perror("Error ");
-	exit(0);
+	x = 500;
+	y = 500;
+	while (x < 564)
+	{
+		mlx_pixel_put (game->mlx_ptr , game->win_ptr, y, x, 0xFFFFFF);
+		while (y < 564)
+		{
+			mlx_pixel_put (game->mlx_ptr , game->win_ptr, y, x, 0xFFFFFF);
+			y++;
+		}
+		x++;
+		y = 500;
+	}
 }

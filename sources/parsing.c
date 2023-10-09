@@ -6,13 +6,13 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 19:53:35 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/06 17:22:13 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/09 18:36:47 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_check_extension(char *str)
+void	ft_check_extension(char *str, t_game *game)
 {
 	int	i;
 
@@ -20,11 +20,11 @@ void	ft_check_extension(char *str)
 	if (!(str[i - 1] == 'b' && str[i - 2] == 'u'
 			&& str[i - 3] == 'c' && str[i - 4] == '.'))
 	{
-		ft_error_msg("Invalid map extension !");
+		ft_error_msg("Invalid map extension !", game);
 	}
 }
 
-int	ft_get_nb_lines(int nb_lines, char *argv)
+int	ft_get_nb_lines(int nb_lines, char *argv, t_game *game)
 {
 	char	*line;
 	int		fd;
@@ -41,7 +41,7 @@ int	ft_get_nb_lines(int nb_lines, char *argv)
 	}
 	close(fd);
 	if (!nb_lines)
-		ft_error_msg("Map file is empty");
+		ft_error_msg("Map file is empty", game);
 	return (nb_lines);
 }
 
@@ -58,7 +58,7 @@ void	ft_get_file(char *argv, int nb_lines, t_game *game)
 	line = get_next_line(fd);
 	game->file = malloc(sizeof(char *) * (nb_lines + 1));
 	if (!game->file)
-		ft_error_msg("MALLOC");
+		ft_error_msg("MALLOC", game);
 	while (line)
 	{
 		game->file[i++] = line;
@@ -66,6 +66,41 @@ void	ft_get_file(char *argv, int nb_lines, t_game *game)
 	}
 	game->file[i] = NULL;
 	close(fd);
+}
+
+void	ft_get_colors(t_game *game, t_textures *textures)
+{
+	int			i;
+
+	i = 4;
+	while (game->file[i])
+	{
+		if (ft_strlen(game->file[i]) > 3)
+		{
+			if (game->file[i][0] == 'F')
+				textures->floor = game->file[i] + 2;
+			if (game->file[i][0] == 'C')
+				textures->ceiling = game->file[i] + 2;
+		}
+		i++;
+	}
+}
+
+void	ft_check_textures(t_game *game, t_textures *textures)
+{
+	if (!textures->north)
+		ft_error_msg("Missing north texture", game);
+	if (!textures->south)
+		ft_error_msg("Missing south texture", game);
+	if (!textures->west)
+		ft_error_msg("Missing west texture", game);
+	if (!textures->east)
+		ft_error_msg("Missing east texture", game);
+	if (!textures->ceiling)
+		ft_error_msg("Missing ceiling texture", game);
+	if (!textures->floor)
+		ft_error_msg("Missing floor texture", game);
+
 }
 
 void	ft_get_textures(t_game *game, t_textures *textures)
@@ -88,6 +123,18 @@ void	ft_get_textures(t_game *game, t_textures *textures)
 		}
 		i++;
 	}
+	ft_get_colors(game, textures);
+	ft_check_textures(game, textures);
+}
+
+void	ft_get_map(t_game *game)
+{
+	int	i;
+	int	y;
+
+	i = 6;
+	y = 0;
+	while (game->file)
 }
 
 void	ft_parse_map(t_game *game, char *argv)
@@ -95,8 +142,9 @@ void	ft_parse_map(t_game *game, char *argv)
 	int	nb_lines;
 
 	nb_lines = 0;
-	ft_check_extension(argv);
-	nb_lines = ft_get_nb_lines(nb_lines, argv);
-	ft_get_file(argv, nb_lines, game); // GAME->FILE MALLOCKED
+	ft_check_extension(argv, game);
+	nb_lines = ft_get_nb_lines(nb_lines, argv, game);
+	ft_get_file(argv, nb_lines, game);
 	ft_get_textures(game, &game->textures);
+	ft_get_map(game);
 }
