@@ -1,30 +1,20 @@
 
 TO DO
 
-display window
 display map in 2D
 check all parsing cock check it on subject & on github
 check all maps that could be fucked up
-
-
-
 get better understanding of raycasting, take notes on the math behind it
 
 MAP PARSING
 
-	- check if map file is openable
   -check surrounded by walls
   -no empty spaces inside map
   -check NO, SO, WE & EA
   -chekc valid texture path
   -Only 6 chars : 0 for an empty space, 1 for a wall, and N,S,E or W for the player’s start position
+  - check colors = between 0 - 255
 
-MLX
-
-  -create window
-  -closing with cross
-  -closing with ESC
-  -smooth changing between windows
 
 CREATION
 
@@ -34,7 +24,16 @@ CREATION
 
 DONE
 
-MAP PARSING
-  -check .cub extension
+MLX
 
-ASK WHY MALLOC OF STRUCT TEXTURE ONLY WORK IN TEXTURE FUNCTION IN THE MEAN TIME INIT ALL TO NULL THE OLDSCHOOL WAY 
+  -create window
+  -closing with cross
+  -closing with ESC
+  -smooth changing between windows
+
+MAP PARSING
+	- check if map file is openable
+  -check .cub extension
+  - in ft_nb_lines, if file is less than 11 nb of lines, shoot it
+
+display window

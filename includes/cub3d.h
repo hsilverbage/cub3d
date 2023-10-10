@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/09 18:17:26 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 01:31:23 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define MALLOC "Malloc was unsuccessful"
 # define ERR_ARG "Wrong number of arguments : ./cub3d maps/map_name.cub"
+# define FILE_ERR "NO path\nSO path\nWE path\nEA path\n\nF R,G,B\nC R,G,B\n\n<MAP>"
 
 typedef struct s_player
 {
