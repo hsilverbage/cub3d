@@ -8,6 +8,8 @@ get better understanding of raycasting, take notes on the math behind it
 
 MAP PARSING
 
+-----> texture and colors could be any order, just the map needs to be at the end of the file.
+
   -check surrounded by walls
   -no empty spaces inside map
   -check NO, SO, WE & EA

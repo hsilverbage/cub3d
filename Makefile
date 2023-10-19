@@ -31,12 +31,13 @@ LIBFT		= libft/libft.a
 MLX_A		= libmlx.a
 MLX			= $(addprefix $(MLX_DIR), $(MLX_A))
 
-SRC =	$(SRC_DIR)/main.c		\
-		$(SRC_DIR)/parsing.c	\
-		$(SRC_DIR)/error.c		\
-		$(SRC_DIR)/free.c		\
-		$(SRC_DIR)/keys.c		\
-		$(SRC_DIR)/display.c
+SRC =	$(SRC_DIR)/main.c			\
+		$(SRC_DIR)/parsing.c		\
+		$(SRC_DIR)/error.c			\
+		$(SRC_DIR)/free.c			\
+		$(SRC_DIR)/keys.c			\
+		$(SRC_DIR)/display.c		\
+		$(SRC_DIR)/parsing_utils.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

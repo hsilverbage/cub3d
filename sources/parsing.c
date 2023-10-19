@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 19:53:35 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/10 02:18:17 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 08:04:13 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_get_nb_lines(int nb_lines, char *argv, t_game *game)
 	close(fd);
 	if (!nb_lines)
 		ft_error_msg("Map file is empty", game);
-	if (nb_lines < 11)
+	if (nb_lines < 10)
 		ft_error_msg("Missing info in .cub file", game);
 	return (nb_lines);
 }
@@ -57,10 +57,10 @@ void	ft_get_file(char *argv, int nb_lines, t_game *game)
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		ft_perror_exit();
-	line = get_next_line(fd);
 	game->file = malloc(sizeof(char *) * (nb_lines + 1));
 	if (!game->file)
 		ft_error_msg("MALLOC", game);
+	line = get_next_line(fd);
 	while (line)
 	{
 		game->file[i++] = line;
@@ -72,54 +72,52 @@ void	ft_get_file(char *argv, int nb_lines, t_game *game)
 
 void	ft_check_textures(t_game *game, t_textures *textures)
 {
-	if (!textures->north || !textures->south || !textures->west || \
-		!textures->east || !textures->ceiling || !textures->floor || \
-		game->file[4][0] != '\0' || game->file[7][0] != '\0')
-	{
-		ft_putstr_fd("Error\n", STDERR_FILENO);
-		ft_putstr_fd("Wrong file format, strict order such as :\n", 2);
-		ft_putstr_fd(FILE_ERR, STDERR_FILENO);
-		exit (EXIT_FAILURE);
-	}
+	if (!textures->north)
+		ft_error_msg(NO_ERR, game);
+	if (!textures->south)
+		ft_error_msg(SO_ERR, game);
+	if (!textures->west)
+		ft_error_msg(WE_ERR, game);
+	if (!textures->east)
+		ft_error_msg(EA_ERR, game);
+	// if (!textures->ceiling)
+	// 	ft_error_msg(C_ERR, game);
+	// if (!textures->floor)
+	// 	ft_error_msg(F_ERR, game);
 }
 
 void	ft_get_textures(t_game *game, t_textures *textures)
 {
-	char	**file;
+	int	i;
+	int	y;
 
-	file = game->file;
-	if (file[0][0] == 'N' && file[0][1] == 'O' && ft_strlen(file[0]) > 3)
-		textures->north = file[0] + 3;
-	if (file[1][0] == 'S' && file[1][1] == 'O' && ft_strlen(file[0]) > 3)
-		textures->south = file[1] + 3;
-	if (file[2][0] == 'W' && file[2][1] == 'E' && ft_strlen(file[0]) > 3)
-		textures->west = file[2] + 3;
-	if (file[3][0] == 'E' && file[3][1] == 'A' && ft_strlen(file[0]) > 3)
-		textures->east = file[3] + 3;
-	if (file[5][0] == 'F' && ft_strlen(file[0]) > 2)
-			textures->floor = file[5] + 2;
-	if (file[6][0] == 'C' && ft_strlen(file[0]) > 2)
-			textures->ceiling = file[6] + 2;
+	i = 0;
+	y = 0;
+	while (game->file[i])
+	{
+		while (game->file[i][y] == ' ')
+			y++;
+		if (game->file[i][y] == 'N' && game->file[i][y + 1] == 'O')
+			textures->north = ft_extract_path(game->file[i], 'N', 'O', game);
+		else if (game->file[i][y] == 'S' && game->file[i][y + 1] == 'O')
+			textures->south = ft_extract_path(game->file[i], 'S', 'O', game);
+		else if (game->file[i][y] == 'W' && game->file[2][y + 1] == 'E')
+			textures->west = ft_extract_path(game->file[i], 'W', 'E', game);
+		else if (game->file[i][y] == 'E' && game->file[3][y + 1] == 'A')
+			textures->east = ft_extract_path(game->file[i], 'E', 'A', game);
+		else if (game->file[i][y] == 'F')
+			textures->floor = ft_extract_colors(game->file[i], 'F', textures, game);
+		else if (game->file[i][y] == 'C')
+			textures->ceiling = ft_extract_colors(game->file[i], 'F', textures, game);
+		i++;
+		y = 0;
+	}
 	ft_check_textures(game, textures);
 }
 
 void	ft_get_map(t_game *game)
 {
-	int	i;
-
-	i = 0;
-	if (game->file[8][i] == '\0')
-	{
-		ft_free_all(game);
-		ft_putstr_fd("Error\n", STDERR_FILENO);
-		ft_putstr_fd("Wrong format file .cub, strict order such as :\n", 2);
-		ft_putstr_fd(FILE_ERR, STDERR_FILENO);
-		exit (EXIT_FAILURE);
-	}
 	game->map = game->file + 8;
-	i = 0;
-	while (game->map[i])
-		printf("%s\n", game->map[i++]);
 }
 
 void	ft_parse_map(t_game *game, char *argv)
@@ -131,5 +129,12 @@ void	ft_parse_map(t_game *game, char *argv)
 	nb_lines = ft_get_nb_lines(nb_lines, argv, game);
 	ft_get_file(argv, nb_lines, game);
 	ft_get_textures(game, &game->textures);
-	ft_get_map(game);
+	printf("%s\n", game->textures.north);
+	printf("%s\n", game->textures.south);
+	printf("%s\n", game->textures.west);
+	printf("%s\n", game->textures.east);
+	// // ft_get_map(game);
+	// int i = 0;
+	// while (game->file[i])
+	// 	printf("%s\n", game->file[i++]);
 }

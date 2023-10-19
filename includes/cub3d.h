@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/10 01:31:23 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 07:57:00 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@
 
 # define MALLOC "Malloc was unsuccessful"
 # define ERR_ARG "Wrong number of arguments : ./cub3d maps/map_name.cub"
-# define FILE_ERR "NO path\nSO path\nWE path\nEA path\n\nF R,G,B\nC R,G,B\n\n<MAP>"
+# define NO_ERR "North texture : NO ./path_to_the_north_texture"
+# define SO_ERR "South texture : sO ./path_to_the_south_texture"
+# define EA_ERR "East texture : EA ./path_to_the_east_texture"
+# define WE_ERR "West texture : WE ./path_to_the_west_texture"
+# define F_ERR "Floor color, R,G,B colors in range [0,255] : F 220,100,0"
+# define C_ERR "Ceiling color, R,G,B colors in range [0,255] : C 220,100,0"
 
 typedef struct s_player
 {
-	int		x;	// EAST - WEST / VERTICAL
-	int		y;	// SO - NO /HORIZONTAL
+	double		x;	// EAST - WEST / VERTICAL
+	double		y;	// SO - NO /HORIZONTAL
 	int		z;	// HEIHGT - 3D
 }				t_player;
 
@@ -82,6 +87,11 @@ int	ft_key_pressed(int key, t_game *game);
 //DISPLAY
 
 void	ft_display(t_game *game);
+void	ft_display_player(t_game *game, double y, double x);
 
+// PARSING UTILS
+
+char	*ft_extract_path(char *str, char c1, char c2, t_game *game);
+char	*ft_extract_colors(char *str, char c, char *texture, t_game *game);
 
 #endif
