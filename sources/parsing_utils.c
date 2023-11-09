@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:43:58 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/19 07:58:59 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/26 23:30:42 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,33 @@ bool	ft_check_colors(char *str)
 		return (false);
 }
 
-void	ft_extract_colors(char *str, char c, t_textures *texture, t_game *game)
+char	*ft_extract_colors(char *str, char c, t_game *game)
 {
-	int	i;
-	int	fd;
+	int		i;
+	char	*color;
 
+	i = 0;
+	color = NULL;
 	while (str[i] == c || str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (ft_check_colors(str + i) == false)
+		ft_error_msg(COLORS_ERR, game);
+	color = str + i;
+	return (color);
+}
+
+bool	ft_valid_map_char(char c)
+{
+	if (c == 'N' || c == 'W' || c == 'E' || c == 'S' || c == '0' || c == '1' || c == ' ')
+		return (true);
+	return (false);
+}
+
+bool	ft_valid_char(char c)
+{
+	if (c == 'N' || c == 'W' || c == 'E' || c == 'S' || c == 'F' || c == 'C' || c == '\0')
 	{
-		ft_error_msg("Floor or ceiling format is wrong")
+		return (true);
 	}
-	texture = str + i;
+	return (false);
 }

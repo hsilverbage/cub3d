@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 19:53:35 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/19 08:04:13 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/10/26 16:21:45 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_get_nb_lines(int nb_lines, char *argv, t_game *game)
 	}
 	close(fd);
 	if (!nb_lines)
-		ft_error_msg("Map file is empty", game);
+		ft_error_msg(".cub file is empty", game);
 	if (nb_lines < 10)
 		ft_error_msg("Missing info in .cub file", game);
 	return (nb_lines);
@@ -70,23 +70,23 @@ void	ft_get_file(char *argv, int nb_lines, t_game *game)
 	close(fd);
 }
 
-void	ft_check_textures(t_game *game, t_textures *textures)
+void	ft_check_textures(t_game *game)
 {
-	if (!textures->north)
+	if (!game->north)
 		ft_error_msg(NO_ERR, game);
-	if (!textures->south)
+	if (!game->south)
 		ft_error_msg(SO_ERR, game);
-	if (!textures->west)
+	if (!game->west)
 		ft_error_msg(WE_ERR, game);
-	if (!textures->east)
+	if (!game->east)
 		ft_error_msg(EA_ERR, game);
-	// if (!textures->ceiling)
-	// 	ft_error_msg(C_ERR, game);
-	// if (!textures->floor)
-	// 	ft_error_msg(F_ERR, game);
+	if (!game->ceiling)
+		ft_error_msg(C_ERR, game);
+	if (!game->floor)
+		ft_error_msg(F_ERR, game);
 }
 
-void	ft_get_textures(t_game *game, t_textures *textures)
+void	ft_get_textures(t_game *game)
 {
 	int	i;
 	int	y;
@@ -97,30 +97,28 @@ void	ft_get_textures(t_game *game, t_textures *textures)
 	{
 		while (game->file[i][y] == ' ')
 			y++;
+		if (ft_valid_char(game->file[i][y]) == false)
+			break ;
 		if (game->file[i][y] == 'N' && game->file[i][y + 1] == 'O')
-			textures->north = ft_extract_path(game->file[i], 'N', 'O', game);
+			game->north = ft_extract_path(game->file[i], 'N', 'O', game);
 		else if (game->file[i][y] == 'S' && game->file[i][y + 1] == 'O')
-			textures->south = ft_extract_path(game->file[i], 'S', 'O', game);
-		else if (game->file[i][y] == 'W' && game->file[2][y + 1] == 'E')
-			textures->west = ft_extract_path(game->file[i], 'W', 'E', game);
-		else if (game->file[i][y] == 'E' && game->file[3][y + 1] == 'A')
-			textures->east = ft_extract_path(game->file[i], 'E', 'A', game);
+			game->south = ft_extract_path(game->file[i], 'S', 'O', game);
+		else if (game->file[i][y] == 'W' && game->file[i][y + 1] == 'E')
+			game->west = ft_extract_path(game->file[i], 'W', 'E', game);
+		else if (game->file[i][y] == 'E' && game->file[i][y + 1] == 'A')
+			game->east = ft_extract_path(game->file[i], 'E', 'A', game);
 		else if (game->file[i][y] == 'F')
-			textures->floor = ft_extract_colors(game->file[i], 'F', textures, game);
+			game->floor = ft_extract_colors(game->file[i], 'F', game);
 		else if (game->file[i][y] == 'C')
-			textures->ceiling = ft_extract_colors(game->file[i], 'F', textures, game);
+			game->ceiling = ft_extract_colors(game->file[i], 'C', game);
 		i++;
 		y = 0;
 	}
-	ft_check_textures(game, textures);
+	ft_check_textures(game);
+	game->map = game->file + i;
 }
 
-void	ft_get_map(t_game *game)
-{
-	game->map = game->file + 8;
-}
-
-void	ft_parse_map(t_game *game, char *argv)
+void	ft_init_map(t_game *game, char *argv)
 {
 	int	nb_lines;
 
@@ -128,13 +126,17 @@ void	ft_parse_map(t_game *game, char *argv)
 	ft_check_extension(argv, game);
 	nb_lines = ft_get_nb_lines(nb_lines, argv, game);
 	ft_get_file(argv, nb_lines, game);
-	ft_get_textures(game, &game->textures);
-	printf("%s\n", game->textures.north);
-	printf("%s\n", game->textures.south);
-	printf("%s\n", game->textures.west);
-	printf("%s\n", game->textures.east);
-	// // ft_get_map(game);
-	// int i = 0;
-	// while (game->file[i])
-	// 	printf("%s\n", game->file[i++]);
+	ft_get_textures(game); // TODO: check if colors are valid
+	ft_parse_map(game);
+	// printf("C %s\n", game->ceiling);
+	// printf("F %s\n", game->floor);
+	int i = 0;
+	while (game->map[i])
+		printf("%s\n", game->map[i++]);
+	// printf("%s\n", game->north);
+	// printf("%s\n", game->south);
+	// printf("%s\n", game->east);
+	// printf("%s\n", game->west);
+	// printf("%s\n", game->floor);
+	// printf("%s\n", game->ceiling);
 }

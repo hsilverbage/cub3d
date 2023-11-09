@@ -37,7 +37,8 @@ SRC =	$(SRC_DIR)/main.c			\
 		$(SRC_DIR)/free.c			\
 		$(SRC_DIR)/keys.c			\
 		$(SRC_DIR)/display.c		\
-		$(SRC_DIR)/parsing_utils.c
+		$(SRC_DIR)/parsing_utils.c	\
+		$(SRC_DIR)/parse_map.c
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
