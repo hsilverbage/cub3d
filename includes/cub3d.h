@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/26 23:23:34 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/13 15:33:40 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_player
 {
 	double		x;	// EAST - WEST / VERTICAL
 	double		y;	// SO - NO /HORIZONTAL
-	int		z;	// HEIHGT - 3D
+	double		dir;
 }				t_player;
 
 typedef struct s_game
@@ -88,10 +88,13 @@ void	ft_display_player(t_game *game, double y, double x);
 
 // PARSING UTILS
 
+
 char	*ft_extract_path(char *str, char c1, char c2, t_game *game);
 char	*ft_extract_colors(char *str, char c, t_game *game);
 bool	ft_valid_char(char c);
 bool	ft_valid_map_char(char c);
+bool	ft_check_dir_char(char c);
+void	ft_init_dir(char c, t_game *game);
 
 // PARSING MAP
 

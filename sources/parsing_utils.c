@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:43:58 by henrik            #+#    #+#             */
-/*   Updated: 2023/10/26 23:30:42 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/10 01:42:35 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,6 @@ char	*ft_extract_colors(char *str, char c, t_game *game)
 		ft_error_msg(COLORS_ERR, game);
 	color = str + i;
 	return (color);
-}
-
-bool	ft_valid_map_char(char c)
-{
-	if (c == 'N' || c == 'W' || c == 'E' || c == 'S' || c == '0' || c == '1' || c == ' ')
-		return (true);
-	return (false);
 }
 
 bool	ft_valid_char(char c)
