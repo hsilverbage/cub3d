@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:09:15 by henrik            #+#    #+#             */
-/*   Updated: 2023/11/10 01:47:43 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/15 03:42:40 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_get_dir(t_game *game)
 	start = 0;
 	while (game->map[i])
 	{
-		while (game->map[i][j] && ft_check_dir_char(game->map[i][j]) == false)
+		while (game->map[i][j] && ft_valid_pos_char(game->map[i][j]) == false)
 			j++;
 		if (game->map[i][j] == '\0')
 		{
@@ -62,6 +62,8 @@ void	ft_get_dir(t_game *game)
 		else
 		{
 			ft_init_dir(game->map[i][j], game);
+			game->player.y = i;
+			game->player.x = j;
 			start += 1;
 			j++;
 		}

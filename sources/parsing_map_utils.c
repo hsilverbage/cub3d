@@ -6,13 +6,13 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:16:27 by henrik            #+#    #+#             */
-/*   Updated: 2023/11/10 01:42:40 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/13 15:53:30 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	ft_check_dir_char(char c)
+bool	ft_valid_pos_char(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/11/13 15:33:40 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/14 03:48:30 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@
 # include "../libft/libft.h"
 # include "var.h"
 # include "stdbool.h"
+# include "math.h"
 
 # define WIDTH 1080
 # define HEIGHT 780
+# define PI 3.1415926535
+# define FOV PI / 3
+# define HALF_PI PI / 2
 
 # define BLUE 250
 # define RED 500
@@ -53,6 +57,8 @@ typedef struct s_game
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	void		*img_ptr;
+	int			*img_addr;
 	char		**map;
 	char		**file;
 	int			height;
@@ -83,7 +89,7 @@ int	ft_key_pressed(int key, t_game *game);
 
 //DISPLAY
 
-void	ft_display(t_game *game);
+int		ft_display(t_game *game);
 void	ft_display_player(t_game *game, double y, double x);
 
 // PARSING UTILS
@@ -93,7 +99,7 @@ char	*ft_extract_path(char *str, char c1, char c2, t_game *game);
 char	*ft_extract_colors(char *str, char c, t_game *game);
 bool	ft_valid_char(char c);
 bool	ft_valid_map_char(char c);
-bool	ft_check_dir_char(char c);
+bool	ft_valid_pos_char(char c);
 void	ft_init_dir(char c, t_game *game);
 
 // PARSING MAP
