@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 12:53:09 by henrik            #+#    #+#             */
-/*   Updated: 2023/11/15 03:39:03 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/15 04:00:44 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	ft_display_map(t_game *game)
 
 int	ft_display(t_game *game)
 {
-	game->img_ptr =  mlx_new_image(game->mlx_ptr, game->width, game->height);
 	ft_display_map(game);
 	ft_display_player(game, game->player.y, game->player.x);
+	game->img_ptr =  mlx_new_image(game->mlx_ptr, game->width, game->height);
 	mlx_clear_window(game->mlx_ptr, game->win_ptr);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_ptr, 0, 0);
 	mlx_destroy_image(game->mlx_ptr, game->img_ptr);

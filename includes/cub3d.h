@@ -6,7 +6,7 @@
 /*   By: henrik <henrik@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 17:20:22 by henrik            #+#    #+#             */
-/*   Updated: 2023/11/14 03:48:30 by henrik           ###   ########lyon.fr   */
+/*   Updated: 2023/11/15 11:00:24 by henrik           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@
 
 # define WIDTH 1080
 # define HEIGHT 780
+# define MOVE_SPEED 0.15
 # define PI 3.1415926535
 # define FOV PI / 3
-# define HALF_PI PI / 2
+# define DIR_N PI / 2
+# define DIR_S 3 * DIR_N
+# define DIR_E 2 * PI
+# define DIR_W PI
 
 # define BLUE 250
 # define RED 500
@@ -48,8 +52,8 @@
 
 typedef struct s_player
 {
-	double		x;	// EAST - WEST / VERTICAL
-	double		y;	// SO - NO /HORIZONTAL
+	double		x;
+	double		y;
 	double		dir;
 }				t_player;
 
